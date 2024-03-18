@@ -55,7 +55,7 @@ function Cards({ category, data, from = 0, len = Math.PI * 2, radius = 5.25, onP
           <Card
             key={angle}
             onPointerOver={(e) => (e.stopPropagation(), hover(i), onPointerOver(i))}
-            onPointerOut={() => (hover(null), onPointerOut(null))}
+            // onPointerOut={() => (hover(null), onPointerOut(null))}
             position={[Math.sin(angle) * radius, 0, Math.cos(angle) * radius]}
             rotation={[0, Math.PI / 2 + angle, 0]}
             active={hovered !== null}

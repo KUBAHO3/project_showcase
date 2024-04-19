@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import { useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { Canvas, extend, useFrame } from '@react-three/fiber'
-import { Image, ScrollControls, useScroll, Billboard, Text } from '@react-three/drei'
+import { Image, ScrollControls, useScroll, Billboard, Text, Html } from '@react-three/drei'
 import { suspend } from 'suspend-react'
 import { generate } from 'random-words'
 import { easing, geometry } from 'maath'
@@ -29,11 +29,11 @@ function Scene({ children, ...props }) {
   })
   return (
     <group ref={ref} {...props}>
-      <Cards category="spring" from={0} len={Math.PI / 4} onPointerOver={hover} onPointerOut={hover} />
-      <Cards category="summer" from={Math.PI / 4} len={Math.PI / 2} position={[0, 0.4, 0]} onPointerOver={hover} onPointerOut={hover} />
-      <Cards category="autumn" from={Math.PI / 4 + Math.PI / 2} len={Math.PI / 2} onPointerOver={hover} onPointerOut={hover} />
-      <Cards category="winter" from={Math.PI * 1.25} len={Math.PI * 2 - Math.PI * 1.25} position={[0, -0.4, 0]} onPointerOver={hover} onPointerOut={hover} />
-      <ActiveCard hovered={hovered} />
+      <Cards category="Mobile App" from={0} len={Math.PI / 4} onPointerOver={hover} onPointerOut={hover} />
+      <Cards category="Web App" from={Math.PI / 4} len={Math.PI / 2} position={[0, 0.4, 0]} onPointerOver={hover} onPointerOut={hover} />
+      <Cards category="Desktop App" from={Math.PI / 4 + Math.PI / 2} len={Math.PI / 2} onPointerOver={hover} onPointerOut={hover} />
+      <Cards category="FullStack" from={Math.PI * 1.25} len={Math.PI * 2 - Math.PI * 1.25} position={[0, -0.4, 0]} onPointerOver={hover} onPointerOut={hover} />
+      <ActiveCard hovered={hovered} className="active"/>
     </group>
   )
 }
@@ -90,14 +90,23 @@ function ActiveCard({ hovered, ...props }) {
     easing.damp(ref.current.material, 'zoom', 1, 0.5, delta)
     easing.damp(ref.current.material, 'opacity', hovered !== null, 0.3, delta)
   })
+  const [clicked, setClicked] = useState(false);
+
+  const handleClick = (hovered) => {
+    // Handle the click event, e.g., open a new tab with the specified URL
+    window.open(`/${hovered}`, '_blank');
+    setClicked(true);
+  };
   return (
     <Billboard {...props}>
-      <Text font={suspend(inter).default} fontSize={0.5} position={[2.15, 3.85, 0]} anchorX="left" color="black">
+      <group onClick={(hovered)=>handleClick(hovered)} >
+      <Text font={suspend(inter).default} fontSize={0.5} position={[2.55, 3.85, 0]} anchorX="left" color= "black">
         {hovered !== null && `${name}\n${hovered}`}
       </Text>
       <Image ref={ref} transparent position={[0, 1.5, 0]} url={`/img${Math.floor(hovered % 10) + 1}.jpg`}>
-        <roundedPlaneGeometry parameters={{ width: 3.5, height: 1.618 * 3.5 }} args={[3.5, 1.618 * 3.5, 0.2]} />
+        <roundedPlaneGeometry parameters={{ width: 3.5, height: 1.618 * 3.5 }} args={[4.5, 1.618 * 3.5, 0.2]} />
       </Image>
+    </group>
     </Billboard>
   )
 }

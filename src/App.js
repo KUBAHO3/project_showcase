@@ -60,7 +60,7 @@ function Cards({ category, data, from = 0, len = Math.PI * 2, radius = 5.25, onP
             rotation={[0, Math.PI / 2 + angle, 0]}
             active={hovered !== null}
             hovered={hovered === i}
-            url={`/img${Math.floor(i % 10) + 1}.jpg`}
+            url={`/imge${Math.floor(i % 10) + 1}.png`}
           />
         )
       })}
@@ -94,7 +94,7 @@ function ActiveCard({ hovered, ...props }) {
 
   const handleClick = (hovered) => {
     // Handle the click event, e.g., open a new tab with the specified URL
-    window.open(`/${hovered}`, '_blank');
+    window.open(`${hovered}`, '_blank');
     setClicked(true);
   };
   return (
@@ -103,7 +103,7 @@ function ActiveCard({ hovered, ...props }) {
       <Text font={suspend(inter).default} fontSize={0.5} position={[2.55, 3.85, 0]} anchorX="left" color= "black">
         {hovered !== null && `${name}\n${hovered}`}
       </Text>
-      <Image ref={ref} transparent position={[0, 1.5, 0]} url={`/img${Math.floor(hovered % 10) + 1}.jpg`}>
+      <Image ref={ref} transparent position={[0, 1.5, 0]} url={`/imge${Math.floor(hovered % 10) + 1}.png`}>
         <roundedPlaneGeometry parameters={{ width: 3.5, height: 1.618 * 3.5 }} args={[4.5, 1.618 * 3.5, 0.2]} />
       </Image>
     </group>

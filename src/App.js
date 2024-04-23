@@ -94,7 +94,7 @@ function ActiveCard({ hovered, ...props }) {
 
   const handleClick = (hovered) => {
     // Handle the click event, e.g., open a new tab with the specified URL
-    window.open(`${hovered}`, '_blank');
+    window.open(`/Hello`, '_blank');
     setClicked(true);
   };
   return (
